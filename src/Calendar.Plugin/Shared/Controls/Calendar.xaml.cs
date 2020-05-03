@@ -280,12 +280,21 @@ namespace Xamarin.Plugin.Calendar.Controls
         }
 
         public static readonly BindableProperty SelectedDateTextFormatProperty =
-          BindableProperty.Create(nameof(SelectedDateTextFormat), typeof(string), typeof(Calendar), "d MMM yyyy");
+          BindableProperty.Create(nameof(SelectedDateTextFormat), typeof(string), typeof(Calendar), "dddd, MMM d");
 
         public string SelectedDateTextFormat
         {
             get => (string)GetValue(SelectedDateTextFormatProperty);
             set => SetValue(SelectedDateTextFormatProperty, value);
+        }
+
+        public static readonly BindableProperty SelectedMonthTextFormatProperty =
+          BindableProperty.Create(nameof(SelectedMonthTextFormat), typeof(string), typeof(Calendar), "MMM");
+
+        public string SelectedMonthTextFormat
+        {
+            get => (string)GetValue(SelectedMonthTextFormatProperty);
+            set => SetValue(SelectedMonthTextFormatProperty, value);
         }
 
         public static readonly BindableProperty CalendarSectionShownProperty =
@@ -471,6 +480,15 @@ namespace Xamarin.Plugin.Calendar.Controls
             set => SetValue(AnimateCalendarProperty, value);
         }
 
+        public static readonly BindableProperty EventsOrientationProperty =
+          BindableProperty.Create(nameof(EventsOrientation), typeof(StackOrientation), typeof(Calendar), StackOrientation.Vertical);
+
+        public StackOrientation EventsOrientation
+        {
+            get => (StackOrientation)GetValue(EventsOrientationProperty);
+            set => SetValue(EventsOrientationProperty, value);
+        }
+
         #endregion
 
         private const uint CalendarSectionAnimationRate = 16;
@@ -608,6 +626,11 @@ namespace Xamarin.Plugin.Calendar.Controls
                 case nameof(CalendarSectionShown):
                     ShowHideCalendarSection();
                     break;
+
+                case nameof(EventsOrientation):
+                    eventsScrollView.Orientation = EventsOrientation == StackOrientation.Vertical
+                        ? ScrollOrientation.Vertical : ScrollOrientation.Horizontal;
+                    break;
             }
         }
 
@@ -624,7 +647,7 @@ namespace Xamarin.Plugin.Calendar.Controls
 
         private void UpdateMonthLabel()
         {
-            MonthText = Culture.DateTimeFormat.MonthNames[MonthYear.Month - 1].Capitalize();
+            MonthText = Culture.DateTimeFormat.AbbreviatedMonthNames[MonthYear.Month - 1];
         }
 
         private void UpdateSelectedDateLabel()

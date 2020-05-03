@@ -75,9 +75,14 @@
             <ScrollView
                 x:Name="eventsScrollView"
                 Grid.Row="1"
+                HorizontalScrollBarVisibility="Never"
+                VerticalScrollBarVisibility="Never"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="StartAndExpand">
                 <controls:GenericRepeaterView
+                    Padding="8"
+                    Spacing="16"
+                    Orientation="{Binding EventsOrientation, Source={x:Reference calendar}}"
                     HorizontalOptions="FillAndExpand"
                     ItemTemplate="{Binding EventTemplate, Source={x:Reference calendar}}"
                     ItemsSource="{Binding SelectedDayEvents, Source={x:Reference calendar}}"

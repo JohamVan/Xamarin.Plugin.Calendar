@@ -19,19 +19,16 @@
             VerticalOptions="CenterAndExpand"
             WidthRequest="{Binding DayViewSize}" />
 
-        <Frame
-            Margin="0,0,0,3"
-            Padding="0"
-            BackgroundColor="{Binding EventColor}"
-            CornerRadius="4"
-            HasShadow="False"
-            HeightRequest="8"
+        <BoxView
+            Margin="0,3,0,3"
+            Color="{Binding EventColor}"
+            CornerRadius="2"
+            HeightRequest="4"
             HorizontalOptions="Center"
             InputTransparent="True"
             IsVisible="{Binding HasEvents}"
-            OutlineColor="Transparent"
             VerticalOptions="End"
-            WidthRequest="8" />
+            WidthRequest="4" />
 
         <Label
             HorizontalOptions="Center"
